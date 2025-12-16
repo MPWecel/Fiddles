@@ -65,9 +65,9 @@ internal class Program
         //Where filters out all non-numbers
         //Second Select converts characters to ints, safe to use, as non-digit chars are already filtered out
         List<(int digit, int index)> digits = inputString.Select((c, i) => (character: c, index: i))
-                                                     .Where(x => Char.IsDigit(x.character))
-                                                                                   .Select(x => ConvertDigitCharactersToInt(x))
-                                                                                   .ToList();
+                                                         .Where(x => Char.IsDigit(x.character))
+                                                         .Select(x => ConvertDigitCharactersToInt(x))
+                                                         .ToList();
 
         //We need pairs of digits, so strings with 1 or no digits are a failure already
         //Then we create pairs of consecutive digits and their indices
@@ -76,8 +76,8 @@ internal class Program
         result = (digits.Count < 2) ?
                               false :
                               digits.Zip(digits.Skip(1), (first, second) => (first, second))
-                                                .Where(pair => IsPairEqualToTen(pair.Item1, pair.Item2))
-                                                .AllOrFalseIfEmpty<((int digit, int index) first, (int digit, int index) second)>(
+                                    .Where(pair => IsPairEqualToTen(pair.Item1, pair.Item2))
+                                    .AllOrFalseIfEmpty<((int digit, int index) first, (int digit, int index) second)>(
                                       pair => IsQuestionMarkInStringThree(inputString, pair.Item1.Item2, pair.Item2.Item2));
 
         return BoolToString(result);
@@ -85,5 +85,3 @@ internal class Program
 
     public static void Main() => Console.WriteLine(QuestionsMarks(Console.ReadLine()));
 }
-
-
